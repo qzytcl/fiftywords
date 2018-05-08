@@ -36,17 +36,7 @@ Page({
     console.log('tab item tap action......');
   },
   viewTap:function () {
-    this.setData({
-      text:"Set some data for updating view.."
-    },function() {
-      //this is setData callback
-      wx.navigateTo({
-        url: '../routerPage/routerPage',
-        success: function(res) {},
-        fail: function(res) {},
-        complete: function(res) {},
-      })
-    })
+
   },
   customData:{
     hi:"MINA"

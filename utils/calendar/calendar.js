@@ -1,4 +1,6 @@
-let arrow = require( '../arrow.js' )
+let arrow = require( '../arrow.js' );
+let Util = require('../main.js');
+
 /*
 * @start @end @step
 */
@@ -22,7 +24,6 @@ function range( start, end, step = 0 ) {
     }
     return ary
 }
-
 function isLeapYear( year ) {
     return ( ( ( year % 4 ) == 0 ) && ( ( year % 100 ) != 0 ) || ( ( year % 400 ) == 0 ) )
 }
@@ -41,7 +42,7 @@ function getDaysInMonth( year,month) {
 }
 
 let week_lang = ['日', '一', '二', '三', '四', '五', '六']
-let works = ['白','夜','休','休']
+let works = ['休', '白', '夜', '休']
 class Calendar {
     constructor( firstweekday = 1) {
          this.firstweekday = firstweekday //# 0 = Sunday, 6 = Saturday
@@ -49,9 +50,6 @@ class Calendar {
     getweekheader(){
         return this.weekdays().map(function(i){
            return week_lang[i]})
-    }
-    getdayWork(e){
-      return works[e%4]
     }
     weekdays() {
         let i = null
@@ -61,6 +59,7 @@ class Calendar {
             return i % 7
         })
     }
+    
     monthdates( year, month ) {
         let local_month = month - 1
         let date = new Date( year, local_month, 1 )
@@ -87,29 +86,45 @@ class Calendar {
         }
         return date_queue      
     }
+
     /**
     * 处理日历
     * @params 参数{year: 年， month： 月}
     */
     monthdayscalendar(params, cb) {
         let year_t = params.year, month_t = params.month;
+        
         var date_queue = this.monthdates(year_t, month_t).map(function (date) {
           let tempDay = date.getDay();
-          let work = works[tempDay%4];
-          let dat = [tempDay,work]
-
+          let dat = [tempDay]
           if (date.getMonth() != month_t - 1) {
             dat.unshift(0)
           } else {
             dat.unshift(date.getDate())
           }
+          let today = dat[0];
+          
+          let work = works[today % 4];
+          dat.push(work);
+          let lDate = Util.Util.getLunarCalendar(year_t,month_t,today);
+          let festival = lDate.festival;
+
+          if(festival) {
+            console.log(festival);
+            dat.push(festival);
+          }
+
+          
           return dat
         })
-        console.log(date_queue);
+
         let daysPerMonth = range(0, date_queue.length, 7).map(function(x) {
             return date_queue.slice(x, x + 7)
         })
+        
         let nowDate = new Date()
+        let lDate = Util.Util.getLunarCalendar(year_t, month_t, nowDate.getDate());
+        let lYear = Util.Util.getSexagenaryCycle(year_t);
         let cal1 =  {
                 realYear: nowDate.getFullYear(),
                 realMonth: nowDate.getMonth() + 1,
@@ -118,9 +133,12 @@ class Calendar {
                 month: parseInt(month_t),
                 calendar: {
                     days: this.getweekheader(),
-                    weeks: daysPerMonth
+                    weeks: daysPerMonth,
+                    dayDetail: lDate,
+                    lYear:lYear
                 }
             }
+        console.log(cal1);
         typeof cb == "function" && cb(cal1)
     }
 }

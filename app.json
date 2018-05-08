@@ -1,15 +1,16 @@
 {
-  "pages":[
+  "pages": [
     "pages/home/home",
     "pages/logs/logs",
-    "pages/routerPage/routerPage"
+    "pages/routerPage/routerPage",
+    "pages/rili/rili"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"black",
-    "enablePullDownRefresh":true
+    "navigationBarTextStyle": "black",
+    "enablePullDownRefresh": true
   },
   "networkTimeout": {
     "request": 10000,

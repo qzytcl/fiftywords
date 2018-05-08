@@ -102,3 +102,6 @@
     .font28{
         font-size: 26rpx;
     }
+    .font14 {
+      font-size: 26rpx;
+    }

@@ -1,0 +1,3 @@
+<view>
+  <view class="wa-grid-33 border-basic">{{title}}</view>
+</view>

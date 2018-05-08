@@ -1,0 +1,19 @@
+Component({
+  options:{
+    multipleSlots:true //在组件定义时的选项中启用多slot支持
+  },
+  properties:{
+    title:{
+      type:String,
+      value:'标题'
+    }
+  },
+  data:{
+    canTouch:false
+  },
+  methods:{
+    __confirmEvent(){
+      this.triggerEvent("confirmEvent");
+    }
+  }
+})

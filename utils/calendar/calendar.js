@@ -50,9 +50,8 @@ class Calendar {
         return this.weekdays().map(function(i){
            return week_lang[i]})
     }
-    getdayWork(){
-      return this.weekdays().map(function (i) { 
-        return works[i%4] })
+    getdayWork(e){
+      return works[e%4]
     }
     weekdays() {
         let i = null
@@ -77,7 +76,7 @@ class Calendar {
         while( loop ) {
             try {
                 if ( counter >= _max_deep ) { break }
-                console.log(date);
+                // console.log(date);
                 date_queue.push( date )
                 date = arrow.arrow.get( date ).replace( { days: 1 }).get_date()
 
@@ -95,8 +94,10 @@ class Calendar {
     monthdayscalendar(params, cb) {
         let year_t = params.year, month_t = params.month;
         var date_queue = this.monthdates(year_t, month_t).map(function (date) {
+          let tempDay = date.getDay();
+          let work = works[tempDay%4];
+          let dat = [tempDay,work]
 
-          let dat = [date.getDay()]
           if (date.getMonth() != month_t - 1) {
             dat.unshift(0)
           } else {
@@ -104,9 +105,8 @@ class Calendar {
           }
           return dat
         })
-        
+        console.log(date_queue);
         let daysPerMonth = range(0, date_queue.length, 7).map(function(x) {
-          console.log(x);
             return date_queue.slice(x, x + 7)
         })
         let nowDate = new Date()
@@ -118,7 +118,6 @@ class Calendar {
                 month: parseInt(month_t),
                 calendar: {
                     days: this.getweekheader(),
-                    works:this.getdayWork(),
                     weeks: daysPerMonth
                 }
             }

@@ -23,6 +23,7 @@ Page({
       year: year,
       month: month
     }, function (resCalendar) {
+      console.log(resCalendar.calendar.days);
       self.setData({ cal1: resCalendar })
     })
   },

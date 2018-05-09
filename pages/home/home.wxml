@@ -11,13 +11,13 @@
                         </view>
                          <template is="fullCalendar" data="{{...cal1}}"></template>
                 </view>
-                <view>农历 
+                <!-- <view>农历 
                 {{cal1.calendar.lYear}} 
                 {{cal1.calendar.dayDetail.month}}
                 {{cal1.calendar.dayDetail.date}}
                  </view>
                 <view>{{cal1.calendar.dayDetail.solarTerm}}</view>
-                <view>{{cal1.calendar.dayDetail.festival}}</view>
+                <view>{{cal1.calendar.dayDetail.festival}}</view> -->
             </view>
         </view>
     </view>    

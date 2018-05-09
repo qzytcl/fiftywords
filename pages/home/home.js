@@ -57,6 +57,31 @@ Page({
     // 页面关闭
   },
   handleSelecteDate(e) {
+
     wx.showToast({ title: `${e.detail.date}`, icon: false })
   },
+  refreshSelect(e) {
+
+    let dataSet = e.currentTarget.dataset;
+    var tmpCal1 = this.data.cal1;
+    console.log(tmpCal1.realYear,dataSet.year);
+    if (tmpCal1.realYear == dataSet.year && tmpCal1.realMonth == dataSet.month) {
+      wx.showActionSheet({
+        itemList: ['白', '夜', '休', '白备', '夜备'],
+        success: function (res) {
+          let index = dataSet.index;
+          let idx = dataSet.idx;
+          tmpCal1.calendar.weeks[index][idx][2] = ['白', '夜', '休', '白备', '夜备'][res.tapIndex];
+          self.setData({ cal1: tmpCal1 })
+          wx.setStorageSync("currentMonthData", tmpCal1);
+        },
+        fail: function (res) {
+          console.log(res.errMsg)
+        }
+      })
+    }
+    
+
+    
+  }
 })

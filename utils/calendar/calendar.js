@@ -41,6 +41,7 @@ function getDaysInMonth( year,month) {
     return days;
 }
 
+
 let week_lang = ['日', '一', '二', '三', '四', '五', '六']
 let works = ['休', '白', '夜', '休']
 class Calendar {
@@ -93,7 +94,12 @@ class Calendar {
     */
     monthdayscalendar(params, cb) {
         let year_t = params.year, month_t = params.month;
-        
+        var cal1 = wx.getStorageSync("currentMonthData");
+        let nowDate = new Date()
+        if(cal1 && nowDate.getFullYear() == year_t && nowDate.getMonth() + 1 ==month_t ) {
+          typeof cb == "function" && cb(cal1)
+          return;
+        }
         var date_queue = this.monthdates(year_t, month_t).map(function (date) {
           let tempDay = date.getDay();
           let dat = [tempDay]
@@ -122,10 +128,10 @@ class Calendar {
             return date_queue.slice(x, x + 7)
         })
         
-        let nowDate = new Date()
+        
         let lDate = Util.Util.getLunarCalendar(year_t, month_t, nowDate.getDate());
         let lYear = Util.Util.getSexagenaryCycle(year_t);
-        let cal1 =  {
+        cal1 =  {
                 realYear: nowDate.getFullYear(),
                 realMonth: nowDate.getMonth() + 1,
                 realDay: nowDate.getDate(),

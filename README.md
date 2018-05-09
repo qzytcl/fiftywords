@@ -1,6 +1,6 @@
 # fiftywords
 
-##For Baby Cheng
+## For Baby Cheng
 
 ### it just a tool to find the word and rest time.
 
@@ -10,9 +10,8 @@
 
 >3. there are many functions:should be perfected.
 >
->A. works data bind cal1.
+><del>A. works data bind cal1.</del>
 >B. show the special block.
->...emmmm
-
+><del>C. custom the date </del>
 
 

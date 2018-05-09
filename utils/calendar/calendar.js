@@ -94,9 +94,13 @@ class Calendar {
     */
     monthdayscalendar(params, cb) {
         let year_t = params.year, month_t = params.month;
-        var cal1 = wx.getStorageSync("currentMonthData");
+        let tmpkey = params.year + "****"+ params.month;
+        console.log(tmpkey);
+        var cal1 = wx.getStorageSync(tmpkey);
+        console.log(cal1);
         let nowDate = new Date()
-        if(cal1 && nowDate.getFullYear() == year_t && nowDate.getMonth() + 1 ==month_t ) {
+        if(cal1 ) {
+          //&& nowDate.getFullYear() == year_t && nowDate.getMonth() + 1 ==month_t
           typeof cb == "function" && cb(cal1)
           return;
         }
@@ -109,18 +113,20 @@ class Calendar {
             dat.unshift(date.getDate())
           }
           let today = dat[0];
-          
-          let work = works[today % 4];
+          var daysss = 0;
+          if (params.next > 0) {
+            daysss = params.workIdx
+          }
+          let workIdx = (daysss + today)%4;
+          let work = works[workIdx];
           dat.push(work);
+          dat.push(workIdx);
           let lDate = Util.Util.getLunarCalendar(year_t,month_t,today);
           let festival = lDate.festival;
 
           if(festival) {
-            console.log(festival);
             dat.push(festival);
           }
-
-          
           return dat
         })
 
@@ -131,12 +137,27 @@ class Calendar {
         
         let lDate = Util.Util.getLunarCalendar(year_t, month_t, nowDate.getDate());
         let lYear = Util.Util.getSexagenaryCycle(year_t);
+        let dpmLen = daysPerMonth.length;
+        console.log(daysPerMonth[dpmLen - 1][0]);
+        let tmpWeeks = daysPerMonth[ daysPerMonth[dpmLen-1][0][0] == 0? (dpmLen - 2):(dpmLen - 1)];
+        var lastWorkIdx = 0;
+        for(var i = 0;i < tmpWeeks.length;i++) {
+          if(tmpWeeks[i][0] == 0){
+            lastWorkIdx = tmpWeeks[i-1][3];
+            break;
+          }else if(i+1 == tmpWeeks.length) {
+            lastWorkIdx = tmpWeeks[i][3];
+            break;
+          }
+           continue;
+        }
         cal1 =  {
                 realYear: nowDate.getFullYear(),
                 realMonth: nowDate.getMonth() + 1,
                 realDay: nowDate.getDate(),
                 year: parseInt(year_t),
                 month: parseInt(month_t),
+                lastDayWorkIdx: lastWorkIdx,
                 calendar: {
                     days: this.getweekheader(),
                     weeks: daysPerMonth,
@@ -144,7 +165,8 @@ class Calendar {
                     lYear:lYear
                 }
             }
-        console.log(cal1);
+        
+        wx.setStorageSync(tmpkey, cal1);
         typeof cb == "function" && cb(cal1)
     }
 }

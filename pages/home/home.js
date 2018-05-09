@@ -18,10 +18,12 @@ Page({
   /**
 * 获取日历
 */
-  getCalendarDate(year, month, isInit) {
+  getCalendarDate(year, month,workIdx,next, isInit) {
     self.cal.monthdayscalendar({
       year: year,
-      month: month
+      month: month,
+      workIdx: workIdx,
+      next: next
     }, function (resCalendar) {
 
       self.setData({ cal1: resCalendar })
@@ -31,11 +33,12 @@ Page({
   * 上一个月
   */
   nextmonth: function (e) {
+    // console.log("next action...");
     let year_diff = parseInt(self.data.cal1.month / 12)
     let month = (self.data.cal1.month + 1)
 
     month = (self.data.cal1.month % 12) + 1
-    self.getCalendarDate(self.data.cal1.year + year_diff, month)
+    self.getCalendarDate(self.data.cal1.year + year_diff, month, self.data.cal1.lastDayWorkIdx,999)
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
@@ -73,7 +76,8 @@ Page({
           let idx = dataSet.idx;
           tmpCal1.calendar.weeks[index][idx][2] = ['白', '夜', '休', '白备', '夜备'][res.tapIndex];
           self.setData({ cal1: tmpCal1 })
-          wx.setStorageSync("currentMonthData", tmpCal1);
+          let tmpKey = dataSet.year + "****" + dataSet.month;
+          wx.setStorageSync(tmpKey, tmpCal1);
         },
         fail: function (res) {
           console.log(res.errMsg)

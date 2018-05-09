@@ -66,18 +66,23 @@ var Util = {
     var solarTermName = ["小寒", "大寒", "立春", "雨水", "惊蛰", "春分", "清明", "谷雨", "立夏", "小满", "芒种", "夏至", "小暑", "大暑", "立秋", "处暑", "露水", "秋分", "寒露", "霜降", "立冬", "小雪", "大雪", "冬至"];
     var festivalName = {
       "0101": "春节",
-      "0115": "元宵节",
-      "0202": "龙头节",
+      "0115": "元宵",
+      "0202": "龙头",
       "0505": "端午",
       "0707": "七夕",
-      "0715": "中元节",
+      "0715": "中元",
       "0815": "中秋",
-      "0909": "重阳节",
-      "1001": "寒衣节",
-      "1015": "下元节",
-      "1208": "腊八节",
+      "0909": "重阳",
+      "1001": "寒衣",
+      "1015": "下元",
+      "1208": "腊八",
       "1223": "小年",
       "1230": "除夕"
+    };
+    var festivalName2 = {
+      "0405": "清明",
+      "0501": "劳动",
+      "1001": "国庆"
     };
 
     var differenceYear = year - 1900;  //年份距1900年差值
@@ -122,8 +127,21 @@ var Util = {
       festivalNumber += "0" + lunarDate;
     else
       festivalNumber += lunarDate;  //拼接字符串
+    
     var festivalString = festivalName[festivalNumber];  //调用节日
-
+    if(!festivalString) {
+      if (month < 10) {
+        var festivalNumber2 = "0" + month
+      } else {
+        var festivalNumber2 = month
+      }
+      if (day < 10) {
+        festivalNumber2 += "0" + day;
+      } else {
+        festivalNumber2 += day;
+      }
+      festivalString = festivalName2[festivalName2];
+    }
     //计算农历名称
     var monthString = monthName[(monthNumber + 11) % 12];  //月份名称
     var prefix = parseInt((lunarDate - 1) / 10);

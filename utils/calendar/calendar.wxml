@@ -9,9 +9,9 @@
         <view wx:for="{{calendar.weeks}}" wx:for-item="week"  wx:key="week">
             <view class="calendar-week">
                 <block wx:for="{{week}}" wx:for-item="day" wx:for-index="idx"  wx:key="item">
-                    <view data-index='{{index}}' data-idx="{{idx}}" data-year='{{year}}' data-month='{{month}}' bindlongpress='refreshSelect' class="calendar-day mute{{day[0]}} {{realYear == year && realMonth == month && realDay === day[0] ? 'bgPress' :''}} {{day[3] ?'bgPress' :''}}">
+                    <view data-index='{{index}}' data-idx="{{idx}}" data-year='{{year}}' data-month='{{month}}' bindlongpress='refreshSelect' class="calendar-day mute{{day[0]}} {{realYear == year && realMonth == month && realDay === day[0] ? 'bgPress' :''}} {{day[4] ?'bgPress' :''}}">
                         <view  class="date-day" style="color: {{(idx==5 || idx==6) ? '#ddd':'#000'}}">{{day[0]==0 ? '' : day[0]}}</view>
-                        <view class='font14'>{{day[0]==0?'':day[2]}} {{day[3]}}</view>
+                        <view class='font14'>{{day[0]==0?'':day[2]}} {{day[4]}}</view>
                     </view>
                 </block>
             </view>

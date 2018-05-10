@@ -5,7 +5,7 @@ Page({
   data: {
     cal1: null // 日历渲染数据
   },
-  /**
+/**
 * 下一个月
 */
   premonth: function (e) {
@@ -13,6 +13,13 @@ Page({
     let year_diff = (month == 0) ? -1 : 0
 
     month = (month == 0) ? 12 : month
+    
+    if(self.data.cal1.year <= 2018 && month < 5) {
+      wx.showToast({
+        title: '往前有Bug了。',
+      })
+      return;
+    }
     self.getCalendarDate(self.data.cal1.year + year_diff, month)
   },
   /**

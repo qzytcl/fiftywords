@@ -76,7 +76,6 @@ class Calendar {
         while( loop ) {
             try {
                 if ( counter >= _max_deep ) { break }
-                // console.log(date);
                 date_queue.push( date )
                 date = arrow.arrow.get( date ).replace( { days: 1 }).get_date()
 
@@ -95,12 +94,9 @@ class Calendar {
     monthdayscalendar(params, cb) {
         let year_t = params.year, month_t = params.month;
         let tmpkey = params.year + "****"+ params.month;
-        console.log(tmpkey);
         var cal1 = wx.getStorageSync(tmpkey);
-        console.log(cal1);
         let nowDate = new Date()
         if(cal1 ) {
-          //&& nowDate.getFullYear() == year_t && nowDate.getMonth() + 1 ==month_t
           typeof cb == "function" && cb(cal1)
           return;
         }

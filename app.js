@@ -6,7 +6,8 @@ App({
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
-
+    var works = wx.getStorageSync("works") || ["白", "夜", "休", "休"]
+    this.globalData.works = works;
     // 登录
     wx.login({
       success: res => {
@@ -36,6 +37,7 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    works: []
   }
 })

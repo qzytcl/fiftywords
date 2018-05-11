@@ -21,13 +21,32 @@
 			"current": -1,
 			"list": []
 		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
 		"game": {
 			"currentL": -1,
 			"list": []
 		},
 		"miniprogram": {
 			"current": -1,
-			"list": []
+			"list": [
+				{
+					"id": 1,
+					"name": "首页",
+					"pathName": "pages/home/home",
+					"query": "1",
+					"scene": "1001"
+				},
+				{
+					"id": 2,
+					"name": "设置",
+					"pathName": "pages/rili/rili",
+					"query": "2",
+					"scene": "1001"
+				}
+			]
 		}
 	}
 }

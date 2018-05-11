@@ -1,7 +1,6 @@
 {
   "pages": [
     "pages/home/home",
-    "pages/logs/logs",
     "pages/routerPage/routerPage",
     "pages/rili/rili"
   ],
@@ -11,6 +10,20 @@
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black",
     "enablePullDownRefresh": true
+  },
+  "tabBar": {
+    "list": [{
+      "pagePath": "pages/home/home",
+      "text": "首页",
+      "iconPath": "icons/homeDefault.png",
+      "selectedIconPath": "icons/homeSelected.png"
+    },
+    {
+      "pagePath": "pages/rili/rili",
+      "text": "编辑",
+      "iconPath": "icons/editDefault.png",
+      "selectedIconPath": "icons/editSelected.png"
+    }]
   },
   "networkTimeout": {
     "request": 10000,

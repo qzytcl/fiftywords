@@ -1,2 +1,28 @@
 <!--pages/rili/rili.wxml-->
-<text>pages/rili/rili.wxml</text>
+<view class='page'>
+  <view class='page__hd'>
+    <view class='page__title'>排班</view>
+    <view class='page__desc'>编辑当月前四天排班即可(长按操作)</view>
+  </view>
+
+  <view class="page__bd page__bd_spacing">
+        <view class="weui-flex">
+            <view class="weui-flex__item"><view class="noticeholder">4号</view></view>
+            <view class="weui-flex__item"><view class="noticeholder">1号</view></view>
+            <view class="weui-flex__item"><view class="noticeholder">2号</view></view>
+            <view class="weui-flex__item"><view class="noticeholder">3号</view></view>
+        </view>
+        <view class="weui-flex">
+            <block wx:for="{{works}}" wx:for-item="work" wx:for-index="idx"  wx:key="works">
+                        <view id='{{idx}}' bindlongpress="dayaction" class="weui-flex__item"><view class="placeholder">{{work}}</view></view>
+            </block>
+        </view>
+    </view>
+      <view class='button-sp-area'>
+      <button bindtap='saveAction' class="weui-btn" type="primary">保存</button>
+    </view>
+
+</view>
+                   
+
+

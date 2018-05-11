@@ -1,6 +1,6 @@
 let arrow = require( '../arrow.js' );
 let Util = require('../main.js');
-
+let app = getApp();
 /*
 * @start @end @step
 */
@@ -43,7 +43,7 @@ function getDaysInMonth( year,month) {
 
 
 let week_lang = ['日', '一', '二', '三', '四', '五', '六']
-let works = ['休', '白', '夜', '休']
+let works = app.globalData.works
 class Calendar {
     constructor( firstweekday = 1) {
          this.firstweekday = firstweekday //# 0 = Sunday, 6 = Saturday
@@ -115,6 +115,7 @@ class Calendar {
           }
           let workIdx = (daysss + today)%4;
           let work = works[workIdx];
+          console.log(works);
           dat.push(work);
           dat.push(workIdx);
           let lDate = Util.Util.getLunarCalendar(year_t,month_t,today);

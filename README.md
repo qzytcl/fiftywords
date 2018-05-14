@@ -1,4 +1,4 @@
-# fiftywords
+# 微信小程序排班表 fiftywords
 
 ## For Baby Cheng
 
@@ -10,8 +10,10 @@
 
 >3. there are many functions:should be perfected.
 >
-><del>A. works data bind cal1.</del>
->B. show the special block.
-><del>C. custom the date </del>
+><del>A. works data bind cal1.</del></br>
+><del>B. show the special block.<del></br>
+><del>C. custom the date </del></br>
+><del>D. data storage.</del></br>
+>E. pause update .....
 
 

@@ -51,14 +51,34 @@ Page({
     // 页面初始化 options为页面跳转所带来的参数
     self = this
     self.cal = new calendar.Calendar();
-    let nowDate = new Date();
-    self.getCalendarDate(nowDate.getFullYear(), nowDate.getMonth() + 1, true);
+
   },
   onReady: function () {
     // 页面渲染完成
   },
   onShow: function () {
     // 页面显示
+    let nowDate = new Date();
+    self.getCalendarDate(nowDate.getFullYear(), nowDate.getMonth() + 1, true);
+  },
+  /**
+ * 用户点击右上角分享
+ */
+  onShareAppMessage: function (res) {
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      // console.log(res.target)
+    }
+    return {
+      title: '分享小铖铖的排班表',
+      path: '/page/home/home',
+      success: function (res) {
+        // 转发成功
+      },
+      fail: function (res) {
+        // 转发失败
+      }
+    }
   },
   onHide: function () {
     // 页面隐藏

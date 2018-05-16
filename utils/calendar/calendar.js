@@ -97,6 +97,9 @@ class Calendar {
         var cal1 = wx.getStorageSync(tmpkey);
         let nowDate = new Date()
         if(cal1 ) {
+          cal1.realYear = nowDate.getFullYear();
+          cal1.realMonth = nowDate.getMonth() + 1;
+          cal1.realDay = nowDate.getDate();
           typeof cb == "function" && cb(cal1)
           return;
         }

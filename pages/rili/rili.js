@@ -70,8 +70,21 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-  
+  onShareAppMessage: function (res) {
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      // console.log(res.target)
+    }
+    return {
+      title: '分享小铖铖的排班表',
+      path: '/page/rili/rili',
+      success: function (res) {
+        // 转发成功
+      },
+      fail: function (res) {
+        // 转发失败
+      }
+    }
   },
   dayaction(e){
     let targetId = e.currentTarget.id;

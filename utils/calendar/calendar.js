@@ -43,7 +43,7 @@ function getDaysInMonth( year,month) {
 
 
 let week_lang = ['日', '一', '二', '三', '四', '五', '六']
-let works = app.globalData.works
+
 class Calendar {
     constructor( firstweekday = 1) {
          this.firstweekday = firstweekday //# 0 = Sunday, 6 = Saturday
@@ -117,8 +117,9 @@ class Calendar {
             daysss = params.workIdx
           }
           let workIdx = (daysss + today)%4;
+          let works = app.globalData.works
           let work = works[workIdx];
-          console.log(works);
+          
           dat.push(work);
           dat.push(workIdx);
           let lDate = Util.Util.getLunarCalendar(year_t,month_t,today);
@@ -138,7 +139,7 @@ class Calendar {
         let lDate = Util.Util.getLunarCalendar(year_t, month_t, nowDate.getDate());
         let lYear = Util.Util.getSexagenaryCycle(year_t);
         let dpmLen = daysPerMonth.length;
-        console.log(daysPerMonth[dpmLen - 1][0]);
+        
         let tmpWeeks = daysPerMonth[ daysPerMonth[dpmLen-1][0][0] == 0? (dpmLen - 2):(dpmLen - 1)];
         var lastWorkIdx = 0;
         for(var i = 0;i < tmpWeeks.length;i++) {

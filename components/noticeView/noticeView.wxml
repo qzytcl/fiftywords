@@ -1,0 +1,5 @@
+<!--components/noticeView/noticeView.wxml-->
+<view class='noticeBaseC'>
+ <view class='noticeTitleC'>{{title}}</view>
+ <view class='noticeMiC'></view>
+</view>

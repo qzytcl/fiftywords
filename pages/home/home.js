@@ -1,9 +1,14 @@
 let calendar = require('../../utils/calendar/calendar.js')
 const app = getApp()
 let self = null
+let itemArr = ['白', '夜', '休', '白备', '夜备','自定义']
+var tempDataSet = null;
 Page({
   data: {
-    cal1: null // 日历渲染数据
+    startTime:1524243060000,
+    ourtimes:"",
+    cal1: null ,// 日历渲染数据
+    isShowDIY:false
   },
 /**
 * 下一个月
@@ -49,8 +54,8 @@ Page({
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
-    self = this
-    self.cal = new calendar.Calendar();
+    // self = this
+    // self.cal = new calendar.Calendar();
 
   },
   onReady: function () {
@@ -58,7 +63,16 @@ Page({
   },
   onShow: function () {
     // 页面显示
+    self = this
+    self.cal = new calendar.Calendar();
+
+    let that = this;
     let nowDate = new Date();
+    let timess = Math.floor((Math.round(nowDate) - self.data.startTime)/24/60/60/1000) + 1;
+    console.log(timess);
+    this.setData({
+      ourtimes : timess
+    });
     self.getCalendarDate(nowDate.getFullYear(), nowDate.getMonth() + 1, true);
   },
   /**
@@ -93,15 +107,27 @@ Page({
   refreshSelect(e) {
 
     let dataSet = e.currentTarget.dataset;
+    tempDataSet = dataSet;
+    console.log(tempDataSet);
     var tmpCal1 = this.data.cal1;
-    console.log(tmpCal1.realYear,dataSet.year);
     if (tmpCal1.realYear == dataSet.year && tmpCal1.realMonth == dataSet.month) {
       wx.showActionSheet({
-        itemList: ['白', '夜', '休', '白备', '夜备'],
+        itemList: itemArr,
         success: function (res) {
+          
+          let tapIdx = res.tapIndex;
           let index = dataSet.index;
           let idx = dataSet.idx;
-          tmpCal1.calendar.weeks[index][idx][2] = ['白', '夜', '休', '白备', '夜备'][res.tapIndex];
+          var tempValue = itemArr[tapIdx];
+          if (tapIdx == 5) {
+
+            self.setData({
+              isShowDIY:true
+            })
+            return;
+          }
+          console.log('12312312312');
+          tmpCal1.calendar.weeks[index][idx][2] = itemArr[res.tapIndex];
           self.setData({ cal1: tmpCal1 })
           let tmpKey = dataSet.year + "****" + dataSet.month;
           wx.setStorageSync(tmpKey, tmpCal1);
@@ -111,8 +137,32 @@ Page({
         }
       })
     }
-    
+  },
+  submitTouch(e) {
+    let tempStr = e.detail.value;
+    if(tempStr.length == 0 ){
+      wx.showToast({
+        title: '还没输入自定义类型呢',
+      })
+    }else{
+      let index = tempDataSet.index;
+      let idx = tempDataSet.idx;
 
-    
+      var tmpCal1 = this.data.cal1;
+
+      tmpCal1.calendar.weeks[index][idx][2] = tempStr;
+
+      this.setData({
+        cal1: tmpCal1,
+        isShowDIY: false
+      })
+      let tmpKey = tempDataSet.year + "****" + tempDataSet.month;
+      wx.setStorageSync(tmpKey, tmpCal1);
+    }
+  },
+  closeAction(e) {
+    this.setData({
+      isShowDIY:false
+    })
   }
 })

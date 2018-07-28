@@ -13,7 +13,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-     let worksArr = wx.getStorageSync("works");
+    let worksArr = app.globalData.works;
      if(worksArr) {
        this.setData({
          works: worksArr
@@ -105,12 +105,15 @@ Page({
     })
   },
   saveAction(e){
+    console.log("save action start.....");
     wx.clearStorageSync();
     let tempArr = this.data.works;
+    console.log(tempArr);
     app.globalData.works = tempArr;
     wx.setStorageSync("works", tempArr);
     wx.reLaunch({
       url: '/pages/home/home',
     })
+    console.log("save action end ...")
   }
 })

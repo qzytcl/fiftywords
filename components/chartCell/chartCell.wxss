@@ -1,8 +1,0 @@
-.wa-grid-33{
-  float: left;
-  width: 12.5%;
-  box-sizing: border-box;
-}
-.border-basic{
-  border: 1px solid #ddd
-}

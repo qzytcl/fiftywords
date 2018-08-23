@@ -94,9 +94,10 @@ class Calendar {
     monthdayscalendar(params, cb) {
         let year_t = params.year, month_t = params.month;
         let tmpkey = params.year + "****"+ params.month;
+
         var cal1 = wx.getStorageSync(tmpkey);
         let nowDate = new Date()
-        if(cal1 ) {
+        if(cal1) {
           cal1.realYear = nowDate.getFullYear();
           cal1.realMonth = nowDate.getMonth() + 1;
           cal1.realDay = nowDate.getDate();
@@ -166,7 +167,7 @@ class Calendar {
                     lYear:lYear
                 }
             }
-        
+        console.log(cal1.month);
         wx.setStorageSync(tmpkey, cal1);
         typeof cb == "function" && cb(cal1)
     }

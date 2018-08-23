@@ -1,0 +1,50 @@
+<!--pages/index/index.wxml-->
+  <DIYInputView 
+  class="homeSign {{!isShowDIY?'hiddenC':''}}" 
+  bind:submitEvent="submitTouch"
+  bind:cancelEvent="closeAction">
+  </DIYInputView>
+<view class="button-sp-area2">
+  <view class="textL" bindtap="premonth">
+    <image style="margin-left:30rpx;" class="arrowIcon" src="/images/blueArrowL.png"></image>
+  </view>
+  <view class="textC">{{cal1.year}}-{{cal1.month}}</view>
+  <view class="textR" bindtap="nextmonth">
+    <image style="margin-right:30rpx;" class="arrowIcon" src="/images/blueArrowR.png"></image>
+  </view>
+</view>
+
+<view class="fullCalendar-body">
+
+  <view class="calendar-week calendar-week-header">
+    <block wx:for="{{cal1.calendar.days}}" wx:for-item="day" wx:key="day">
+      <view class="calendar-day">{{day}}</view>
+    </block>
+  </view>
+  <view class="date_down_wrap">
+    <view wx:for="{{cal1.calendar.weeks}}" wx:for-item="week" wx:key="week">
+      <view class="calendar-week">
+        <block wx:for="{{week}}" wx:for-item="day" wx:for-index="idx" wx:key="item">
+          <CalendarCell
+          bind:longpressCalendarCell="refreshSelect"
+          data-idx="{{idx}}"
+          data-index="{{index}}"
+          year="{{cal1.year}}"
+          month="{{cal1.month}}"
+          realYear="{{cal1.realYear}}"
+          realMonth="{{cal1.realMonth}}"
+          realDay="{{cal1.realDay}}"
+          dayTime="{{day[0]}}" 
+          dayStatus="{{day[2]}}" 
+          dayFestival="{{day[4]}}">
+          </CalendarCell>
+        </block>
+      </view>
+    </view>
+  </view>
+</view>
+  <view class='ourinfo'>
+    <image class='iconC' src='/icons/fficon.png'></image>
+    <view class='ourtime'>{{ourtimes}}</view>
+    <image class='iconC' src='/icons/ccicon.png'></image>
+  </view>

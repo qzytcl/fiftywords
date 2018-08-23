@@ -1,7 +1,6 @@
 {
   "pages": [
-    "pages/home/home",
-    "pages/routerPage/routerPage",
+    "pages/index/index",
     "pages/rili/rili"
   ],
   "window": {
@@ -12,18 +11,20 @@
     "enablePullDownRefresh": false
   },
   "tabBar": {
-    "list": [{
-      "pagePath": "pages/home/home",
-      "text": "首页",
-      "iconPath": "icons/homeDefault.png",
-      "selectedIconPath": "icons/homeSelected.png"
-    },
-    {
-      "pagePath": "pages/rili/rili",
-      "text": "编辑",
-      "iconPath": "icons/editDefault.png",
-      "selectedIconPath": "icons/editSelected.png"
-    }]
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "icons/homeDefault.png",
+        "selectedIconPath": "icons/homeSelected.png"
+      },
+      {
+        "pagePath": "pages/rili/rili",
+        "text": "编辑",
+        "iconPath": "icons/editDefault.png",
+        "selectedIconPath": "icons/editSelected.png"
+      }
+    ]
   },
   "networkTimeout": {
     "request": 10000,

@@ -1,9 +1,5 @@
 <!--pages/index/index.wxml-->
-  <DIYInputView 
-  class="homeSign {{!isShowDIY?'hiddenC':''}}" 
-  bind:submitEvent="submitTouch"
-  bind:cancelEvent="closeAction">
-  </DIYInputView>
+  <DIYView class="homeSign {{isShowDIY?'':'hiddenC'}}" bind:cancelEvent='cancelAction' bind:confirmEvent='confirmAction'></DIYView>
 <view class="button-sp-area2">
   <view class="textL" bindtap="premonth">
     <image style="margin-left:30rpx;" class="arrowIcon" src="/images/blueArrowL.png"></image>

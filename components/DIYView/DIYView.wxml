@@ -1,0 +1,21 @@
+<!--components/DIYView/DIYView.wxml-->
+<view class='panel'>
+
+  <view class='maskingView'>
+
+    <view class='contentView'>
+
+      <view class='noticeTitle'>请填写上班类别</view>
+      <view class='noticeSubTitle'>(自定义上班类别:白夜休行药)</view>
+      <input class='inputView' bindinput="inputAction"></input>
+
+      <view class='buttonPanel'>
+        <view class='buttonCancel' bindtap='cancelAction'>取 消</view>
+        <view class='buttonConfirm' bindtap='confirmAction'>确 定</view>
+      </view>
+
+    </view>
+
+  </view>
+
+</view>

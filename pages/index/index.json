@@ -2,6 +2,6 @@
   "navigationBarTitleText": "铖宝宝的排班表",
   "usingComponents":{
     "CalendarCell": "/components/CalendarCell/CalendarCell",
-    "DIYInputView": "/components/DIYInputView/DIYInputView"
+    "DIYView": "/components/DIYView/DIYView"
   }
 }

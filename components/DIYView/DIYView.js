@@ -1,4 +1,4 @@
-// components/DIYInputView/DIYInputView.js
+// components/DIYView/DIYView.js
 Component({
   /**
    * 组件的属性列表
@@ -6,29 +6,31 @@ Component({
   properties: {
 
   },
+
   /**
    * 组件的初始数据
    */
   data: {
-    inputStr:""
+    inputValue: ''
   },
+
   /**
    * 组件的方法列表
    */
   methods: {
     inputAction(e) {
       this.setData({
-        inputStr:e.detail.value
+        inputValue: e.detail.value
       })
     },
-    submitAction(e) {
-      this.triggerEvent('submitEvent', {'value':this.data.inputStr});
+    cancelAction(e) {
+      this.triggerEvent('cancelEvent');
       this.setData({
         inputStr: ""
       })
     },
-    cancelAction(e){
-      this.triggerEvent('cancelEvent');
+    confirmAction(e) {
+      this.triggerEvent('confirmEvent', { value: this.data.inputValue });
       this.setData({
         inputStr: ""
       })

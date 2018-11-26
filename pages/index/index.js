@@ -2,7 +2,7 @@
 let calendar = require('../../utils/calendar/calendar.js')
 const app = getApp()
 let self = null
-let itemArr = ['白', '夜', '休', '白备', '夜备', '自定义']
+let itemArr = ['白', '夜', '休', '行', '药', '自定义']
 var tempDataSet = null;
 Page({
 
@@ -129,11 +129,14 @@ Page({
 
   },
   refreshSelect(e) {
-    console.log(e);
+    // console.log(e);
     let dataSet = e.currentTarget.dataset;
+
     tempDataSet = dataSet;
     let tmpYear = e.detail.year;
     let tmpMonth = e.detail.month;
+    tempDataSet.year = tmpYear;
+    tempDataSet.month = tmpMonth;
     var tmpCal1 = this.data.cal1;
 
     wx.showActionSheet({
@@ -155,7 +158,7 @@ Page({
           cal1: tmpCal1
         })
         let tmpKey = tmpYear + "****" + tmpMonth;
-        console.log(tmpKey);
+        // console.log(tmpKey);
         wx.setStorageSync(tmpKey, tmpCal1);
       },
       fail: function(res) {
@@ -163,13 +166,14 @@ Page({
       }
     })
   },
-  submitTouch(e) {
+  confirmAction(e) {
     let tempStr = e.detail.value;
     if (tempStr.length == 0) {
       wx.showToast({
         title: '还没输入自定义类型呢',
       })
     } else {
+      console.log(tempDataSet);
       let index = tempDataSet.index;
       let idx = tempDataSet.idx;
 
@@ -182,10 +186,11 @@ Page({
         isShowDIY: false
       })
       let tmpKey = tempDataSet.year + "****" + tempDataSet.month;
+      // console.log(tmpKey,"confirm...");
       wx.setStorageSync(tmpKey, tmpCal1);
     }
   },
-  closeAction(e) {
+  cancelAction(e) {
     this.setData({
       isShowDIY: false
     })

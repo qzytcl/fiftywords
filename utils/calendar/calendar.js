@@ -117,10 +117,10 @@ class Calendar {
           if (params.next > 0) {
             daysss = params.workIdx
           }
-          let workIdx = (daysss + today)%4;
           let works = app.globalData.works
-          let work = works[workIdx];
-          
+          let workIdx = (daysss + today)%works.length;
+          let work = works[workIdx].content;
+
           dat.push(work);
           dat.push(workIdx);
           let lDate = Util.Util.getLunarCalendar(year_t,month_t,today);

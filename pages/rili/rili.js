@@ -6,23 +6,17 @@ Page({
    * 页面的初始数据
    */
   data: {
-    works: []
+    worksData: [{ content: '白', date: 4 }, { content: '夜', date: 1 }, { content: '休', date: 2 },{ content: '休', date: 3 }],
+    allCount:4,
+    isShowDIY: false,
+    currentIdx:-1
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let worksArr = app.globalData.works;
-     if(worksArr) {
-       this.setData({
-         works: worksArr
-       })
-     }else{
-       this.setData({
-         works:app.globalData.works
-       })
-     }
+
   },
   
   /**
@@ -36,7 +30,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    let worksArr = app.globalData.works;
+
+    if (worksArr) {
+      this.setData({
+        worksData: worksArr,
+        allCount: worksArr.length
+      })
+    }
   },
 
   /**
@@ -87,16 +88,28 @@ Page({
     }
   },
   dayaction(e){
-    let targetId = e.currentTarget.id;
+    let targetId = e.currentTarget.dataset.id;
+    this.setData({
+      currentIdx:targetId
+    })
     let that = this;
+    let arr = ['白', '夜', '休','自定义']
     wx.showActionSheet({
-      itemList: ['白', '夜', '休'],
+      itemList: arr,
       success: function (res) {
-        let value = ['白', '夜', '休'][res.tapIndex];
-        that.data.works[targetId] = value;
-        let tempArr = that.data.works;
+        let tapIdx = res.tapIndex;
+        let value = arr[tapIdx];
+        var tempArr = that.data.worksData;
+
+        tempArr[targetId].content = value;
+        if (tapIdx == 3) {
+          that.setData({
+            isShowDIY: true
+          })
+          return;
+        }
         that.setData({
-          works: tempArr
+          worksData: tempArr
         })
       },
       fail: function (res) {
@@ -104,16 +117,78 @@ Page({
       }
     })
   },
+  showCircle(e){
+    let that = this;
+    let arr = ['4', '5', '6','7','8'];
+    wx.showActionSheet({
+      itemList: arr,
+      success: function (res) {
+        let value = arr[res.tapIndex];
+        that.circleAction(value);
+      },
+      fail: function (res) {
+        console.log(res.errMsg)
+      }
+    })
+  },
+  circleAction(e){
+    let allcount = e;
+    if (allcount => 4 && allcount < 10) {
+      var tworksData = [];
+      for (var i = 0; i < allcount; i++) {
+        var tDic = { content: '休', date: '1' }
+        if (i == 0) {
+          tDic.date = allcount;
+        } else {
+          tDic.date = i;
+        }
+        tworksData[i] = tDic;
+      }
+
+      this.setData({
+        allCount: allcount,
+        worksData: tworksData
+      });
+    } else {
+      wx.showToast({
+        title: '格式错误',
+      });
+    }
+  },
+  confirmInput(e){
+    let allcount = e.detail.value;
+    this.circleAction(allcount);
+  },
   saveAction(e){
-    console.log("save action start.....");
+    
     wx.clearStorageSync();
-    let tempArr = this.data.works;
-    console.log(tempArr);
+    let tempArr = this.data.worksData;
     app.globalData.works = tempArr;
     wx.setStorageSync("works", tempArr);
     wx.reLaunch({
-      url: '/pages/home/home',
+      url: '/pages/index/index',
     })
-    console.log("save action end ...")
+    
+  },
+  confirmAction(e) {
+    let tempStr = e.detail.value;
+    if (tempStr.length == 0) {
+      wx.showToast({
+        title: '还没输入自定义类型呢',
+      })
+    } else {
+      var tempArr = this.data.worksData;
+
+      tempArr[this.data.currentIdx].content = tempStr;
+      this.setData({
+        worksData: tempArr,
+        isShowDIY: false
+      })
+    }
+  },
+  cancelAction(e) {
+    this.setData({
+      isShowDIY: false
+    })
   }
 })

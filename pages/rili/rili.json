@@ -1,3 +1,6 @@
 {
-  "navigationBarTitleText": "自定义排班表"
+  "navigationBarTitleText": "自定义排班表",
+  "usingComponents": {
+    "DIYView": "/components/DIYView/DIYView"
+  }
 }

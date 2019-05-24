@@ -15,7 +15,7 @@
       {
         "pagePath": "pages/index/index",
         "text": "首页",
-        "iconPath": "icons/setDefault.png",
+        "iconPath": "icons/homeDefault.png",
         "selectedIconPath": "icons/homeSelected.png"
       },
       {

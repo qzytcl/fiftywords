@@ -44,7 +44,7 @@ page{
 .button-sp-area{
     margin: 0 auto;
     padding-top: 15px;
-    width: 80%;
+    width: 90%;
 }
 .mini-btn{
     margin-right: 5px;
@@ -61,6 +61,10 @@ page{
     line-height: 2.3em;
     color: #000000;
 }
+.sortCircle {
+  display: inline-flex;
+  align-items: center;
+}
 .placeholder{
     margin: 5px;
     padding: 0 10px;
@@ -69,6 +73,9 @@ page{
     height: 2.3em;
     line-height: 2.3em;
     color: #cfcfcf;
+}
+.selectMargin {
+  margin-left: 10rpx;
 }
 .weui-grids{border-top:0rpx solid #d9d9d9;border-left:0rpx solid #d9d9d9;overflow:hidden}
 .weui-grid{position:relative;float:left;padding:10px 5px;width:25%;box-sizing:border-box;border-right:0rpx solid #d9d9d9;border-bottom:0rpx solid #d9d9d9}

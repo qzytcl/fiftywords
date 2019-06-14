@@ -66,3 +66,10 @@
 .font28 {
   font-size: 26rpx;
 }
+.numberOfLine1 {
+  display: inline-block;
+  white-space: nowrap; 
+  width: 100%; 
+  overflow: hidden;
+  text-overflow:ellipsis;
+}

@@ -13,7 +13,9 @@ Page({
     startTime: 1524243060000,
     ourtimes: "",
     cal1: null, // 日历渲染数据
-    isShowDIY: false
+    isShowDIY: false,
+    statisticsDaysList: [{ title: '白', content: 1 }, { title: '白', content: 1 }, { title: '白', content: 1 }],
+    countWidth:0
   },
   /**
    * 下一个月
@@ -23,13 +25,7 @@ Page({
     let year_diff = (month == 0) ? -1 : 0
 
     month = (month == 0) ? 12 : month
-    // console.log("premonth",month);
-    // if (self.data.cal1.year <= 2018 && month < 5) {
-    //   wx.showToast({
-    //     title: '往前有Bug了。',
-    //   })
-    //   return;
-    // }
+
     self.getCalendarDate(self.data.cal1.year + year_diff, month)
   },
   /**
@@ -46,6 +42,7 @@ Page({
       self.setData({
         cal1: resCalendar
       })
+      self.statisticsDays();
     })
 
   },
@@ -60,13 +57,61 @@ Page({
     month = (self.data.cal1.month % 12) + 1
     // console.log(month);
     self.getCalendarDate(self.data.cal1.year + year_diff, month, self.data.cal1.lastDayWorkIdx, 999)
-
+  },
+  statisticsDays(){
+    // let tmpKey = tmpYear + "****" + tmpMonth;
+    var result = new Map();
+    var tempArr = [];
+    var tArr = this.data.cal1.calendar.weeks;
+    for (var i = 0; i < tArr.length; i++) {
+      let tmpArr = tArr[i];
+      for(var j = 0;j < tmpArr.length; j ++) {
+        let tObj = tmpArr[j];
+        if(tObj[0] == 0 || tObj[2] == '休') {
+          continue;
+        }else {
+          var objCount = result.get(tObj[2]) ? result.get(tObj[2]):0;
+          objCount ++;
+          result.set(tObj[2],objCount);
+        }
+      }
+    }
+    var resultArr = [];
+    // var sum = 0;
+    for(var x of result) {
+      // console.log(x);
+      var obj = {};
+      obj.title = x[0];
+      obj.content = x[1];
+      // sum = sum + x[1];
+      resultArr.push(obj);
+    }
+    // var sumObj = {'title':'总计','content':sum};
+    // resultArr.push(sumObj);
+    this.setData({
+      statisticsDaysList:resultArr,
+      countWidth:740.0/(resultArr.length)
+    })
+    console.log(this.data.statisticsDaysList);
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    self = this
+    // 页面显示
 
+    self.cal = new calendar.Calendar();
+
+    let that = this;
+    let nowDate = new Date();
+    let timess = Math.floor((Math.round(nowDate) - self.data.startTime) / 24 / 60 / 60 / 1000) + 1;
+    // console.log(timess);
+    this.setData({
+      ourtimes: timess
+    });
+    self.getCalendarDate(nowDate.getFullYear(), nowDate.getMonth() + 1, true);
+    this.statisticsDays();
   },
 
   /**
@@ -80,18 +125,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    // 页面显示
-    self = this
-    self.cal = new calendar.Calendar();
 
-    let that = this;
-    let nowDate = new Date();
-    let timess = Math.floor((Math.round(nowDate) - self.data.startTime) / 24 / 60 / 60 / 1000) + 1;
-    // console.log(timess);
-    this.setData({
-      ourtimes: timess
-    });
-    self.getCalendarDate(nowDate.getFullYear(), nowDate.getMonth() + 1, true);
   },
 
   /**
@@ -160,6 +194,7 @@ Page({
         let tmpKey = tmpYear + "****" + tmpMonth;
         // console.log(tmpKey);
         wx.setStorageSync(tmpKey, tmpCal1);
+        self.statisticsDays();
       },
       fail: function(res) {
         console.log(res.errMsg)
@@ -188,6 +223,7 @@ Page({
       let tmpKey = tempDataSet.year + "****" + tempDataSet.month;
       // console.log(tmpKey,"confirm...");
       wx.setStorageSync(tmpKey, tmpCal1);
+      self.statisticsDays();
     }
   },
   cancelAction(e) {

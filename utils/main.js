@@ -80,6 +80,7 @@ var Util = {
       "1230": "除夕"
     };
     var festivalName2 = {
+      "0421": "亲亲",
       "0405": "清明",
       "0501": "劳动",
       "1001": "国庆"
@@ -140,7 +141,7 @@ var Util = {
       } else {
         festivalNumber2 += day;
       }
-      festivalString = festivalName2[festivalName2];
+      festivalString = festivalName2[festivalNumber2];
     }
     //计算农历名称
     var monthString = monthName[(monthNumber + 11) % 12];  //月份名称

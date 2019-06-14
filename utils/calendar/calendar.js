@@ -124,6 +124,7 @@ class Calendar {
           dat.push(work);
           dat.push(workIdx);
           let lDate = Util.Util.getLunarCalendar(year_t,month_t,today);
+          
           let festival = lDate.festival;
 
           if(festival) {

@@ -39,8 +39,18 @@
     </view>
   </view>
 </view>
+
+  <view class='statisticsCls weui-grids'>
+    <block wx:for="{{statisticsDaysList}}" wx:for-item="item" wx:for-index='idx' wx:key="statisticsDaysList">
+      <view class='weui-grid sCell' style="width:{{countWidth}}rpx">
+        <view class='statisticsTitle'>{{item.title}}</view>
+        <view class='statisticsContent'>{{item.content}}</view>
+      </view>
+    </block>
+  </view>
   <view class='ourinfo'>
     <image class='iconC' src='/icons/fficon.png'></image>
     <view class='ourtime'>{{ourtimes}}</view>
     <image class='iconC' src='/icons/ccicon.png'></image>
   </view>
+  <view class='bottomView'></view>

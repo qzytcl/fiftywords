@@ -88,9 +88,13 @@ Page({
     }
     // var sumObj = {'title':'总计','content':sum};
     // resultArr.push(sumObj);
+    var row = 4;
+    if(resultArr.length > 4) {
+        row = resultArr.length;
+    }
     this.setData({
       statisticsDaysList:resultArr,
-      countWidth:740.0/(resultArr.length)
+      countWidth:740.0/row
     })
     console.log(this.data.statisticsDaysList);
   },

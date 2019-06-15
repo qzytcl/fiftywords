@@ -152,8 +152,8 @@
   float: left;
   text-align: center;
 }
-.weui-grids{border-top:1rpx solid #d9d9d9;border-left:1rpx solid #d9d9d9;overflow:hidden}
-.weui-grid{position:relative;float:left;padding:10px 5px;width:25%;box-sizing:border-box;border-right:1rpx solid #d9d9d9;border-bottom:1rpx solid #d9d9d9}
+.weui-grids{border-top:0rpx solid #d9d9d9;border-left:1rpx solid #d9d9d9;overflow:hidden}
+.weui-grid{border-top:1rpx solid #d9d9d9;position:relative;float:left;padding:10px 5px;width:25%;box-sizing:border-box;border-right:1rpx solid #d9d9d9;border-bottom:1rpx solid #d9d9d9}
 .statisticsTitle {
   color: #666;
   display: inline-block;

@@ -15,5 +15,6 @@
 ><del>C. custom the date </del></br>
 ><del>D. data storage.</del></br>
 >E. pause update .....
+>F.后台数据支持。
 
 

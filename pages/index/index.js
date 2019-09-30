@@ -4,6 +4,7 @@ const app = getApp()
 let self = null
 let itemArr = ['白', '夜', '休', '行', '药', '自定义']
 var tempDataSet = null;
+var interval = null;
 Page({
 
   /**
@@ -15,7 +16,10 @@ Page({
     cal1: null, // 日历渲染数据
     isShowDIY: false,
     statisticsDaysList: [{ title: '白', content: 1 }, { title: '白', content: 1 }, { title: '白', content: 1 }],
-    countWidth:0
+    countWidth:0,
+    lDate:null,
+    isShowLunar:false,
+    leftMargin:800
   },
   /**
    * 下一个月
@@ -38,7 +42,7 @@ Page({
       workIdx: workIdx,
       next: next
     }, function(resCalendar) {
-      // console.log(resCalendar);
+      
       self.setData({
         cal1: resCalendar
       })
@@ -50,16 +54,16 @@ Page({
    * 上一个月
    */
   nextmonth: function(e) {
-    // console.log("next action...");
+
     let year_diff = parseInt(self.data.cal1.month / 12)
     let month = (self.data.cal1.month + 1)
 
     month = (self.data.cal1.month % 12) + 1
-    // console.log(month);
+    
     self.getCalendarDate(self.data.cal1.year + year_diff, month, self.data.cal1.lastDayWorkIdx, 999)
   },
   statisticsDays(){
-    // let tmpKey = tmpYear + "****" + tmpMonth;
+
     var result = new Map();
     var tempArr = [];
     var tArr = this.data.cal1.calendar.weeks;
@@ -77,17 +81,12 @@ Page({
       }
     }
     var resultArr = [];
-    // var sum = 0;
     for(var x of result) {
-      // console.log(x);
       var obj = {};
       obj.title = x[0];
       obj.content = x[1];
-      // sum = sum + x[1];
       resultArr.push(obj);
     }
-    // var sumObj = {'title':'总计','content':sum};
-    // resultArr.push(sumObj);
     var row = 4;
     if(resultArr.length > 4) {
         row = resultArr.length;
@@ -96,7 +95,6 @@ Page({
       statisticsDaysList:resultArr,
       countWidth:740.0/row
     })
-    console.log(this.data.statisticsDaysList);
   },
   /**
    * 生命周期函数--监听页面加载
@@ -110,7 +108,7 @@ Page({
     let that = this;
     let nowDate = new Date();
     let timess = Math.floor((Math.round(nowDate) - self.data.startTime) / 24 / 60 / 60 / 1000) + 1;
-    // console.log(timess);
+    
     this.setData({
       ourtimes: timess
     });
@@ -166,8 +164,27 @@ Page({
   onShareAppMessage: function() {
 
   },
+  cancelShowLunarViewAction(e){
+    // if(this.data.isShowLunar && this.data.leftMargin == 0) {
+    //   var that = this;
+    //   var tMargin = 0
+    //   console.log(tMargin)
+    //   interval = setInterval(function () {
+    //     tMargin += 400
+    //     console.log(tMargin)
+    //     that.setData({
+    //       leftMargin: tMargin
+    //     })
+    //     if (tMargin >= 800) {
+    //       clearInterval(interval);
+    //       that.setData({
+    //         isShowLunar: false
+    //       })
+    //     }
+    //   }, 150)
+    // }
+  },
   refreshSelect(e) {
-    // console.log(e);
     let dataSet = e.currentTarget.dataset;
 
     tempDataSet = dataSet;
@@ -196,7 +213,7 @@ Page({
           cal1: tmpCal1
         })
         let tmpKey = tmpYear + "****" + tmpMonth;
-        // console.log(tmpKey);
+        
         wx.setStorageSync(tmpKey, tmpCal1);
         self.statisticsDays();
       },
@@ -205,30 +222,54 @@ Page({
       }
     })
   },
-  confirmAction(e) {
-    let tempStr = e.detail.value;
-    if (tempStr.length == 0) {
-      wx.showToast({
-        title: '还没输入自定义类型呢',
-      })
-    } else {
-      console.log(tempDataSet);
-      let index = tempDataSet.index;
-      let idx = tempDataSet.idx;
-
-      var tmpCal1 = this.data.cal1;
-
-      tmpCal1.calendar.weeks[index][idx][2] = tempStr;
-
-      this.setData({
-        cal1: tmpCal1,
-        isShowDIY: false
-      })
-      let tmpKey = tempDataSet.year + "****" + tempDataSet.month;
-      // console.log(tmpKey,"confirm...");
-      wx.setStorageSync(tmpKey, tmpCal1);
-      self.statisticsDays();
+  didClickCell(e){
+    if(this.data.isShowLunar){
+      return;
     }
+    var that = this;
+    let dic = e.detail.lunarDate;
+    if (dic) {
+      this.setData({
+        lDate: dic,
+        isShowLunar: true
+      })
+    }
+    var tMargin = 800
+    console.log(tMargin)
+    interval = setInterval(function(){
+      tMargin -= 400
+      console.log(tMargin)
+      that.setData({
+        leftMargin:tMargin
+      })
+      if(tMargin == 0) {
+        clearInterval(interval);
+      }
+    },150)
+  },
+  confirmAction(e) {
+    // let tempStr = e.detail.value;
+    // if (tempStr.length == 0) {
+    //   wx.showToast({
+    //     title: '还没输入自定义类型呢',
+    //   })
+    // } else {
+    //   console.log(tempDataSet);
+    //   let index = tempDataSet.index;
+    //   let idx = tempDataSet.idx;
+
+    //   var tmpCal1 = this.data.cal1;
+
+    //   tmpCal1.calendar.weeks[index][idx][2] = tempStr;
+
+    //   this.setData({
+    //     cal1: tmpCal1,
+    //     isShowDIY: false
+    //   })
+    //   let tmpKey = tempDataSet.year + "****" + tempDataSet.month;
+    //   wx.setStorageSync(tmpKey, tmpCal1);
+    //   self.statisticsDays();
+    // }
   },
   cancelAction(e) {
     this.setData({

@@ -159,16 +159,34 @@ Page({
     let allcount = e.detail.value;
     this.circleAction(allcount);
   },
+  clearAction(year,month){
+    
+    let key = year + "****" + month;
+    let value = wx.getStorageSync(key);
+    if (value) {
+      console.log('123_______'+month);
+      wx.removeStorageSync(key)
+      month++;
+      if(month >0 & month <= 12) {
+        this.clearAction(year, month);
+      }else if(month >= 13) {
+        year++;
+        month=1;
+        this.clearAction(year,month);
+      }
+    }
+  },
   saveAction(e){
     
-    wx.clearStorageSync();
+    let nowDate = new Date();
+    //getMonth [0~11]
+    this.clearAction(nowDate.getFullYear(),nowDate.getMonth()+1)
     let tempArr = this.data.worksData;
     app.globalData.works = tempArr;
     wx.setStorageSync("works", tempArr);
     wx.reLaunch({
       url: '/pages/index/index',
     })
-    
   },
   confirmAction(e) {
     let tempStr = e.detail.value;

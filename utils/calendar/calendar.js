@@ -1,5 +1,5 @@
 let arrow = require( '../arrow.js' );
-let Util = require('../main.js');
+let Util = require('../calendar.js');
 let app = getApp();
 /*
 * @start @end @step
@@ -120,28 +120,20 @@ class Calendar {
           let works = app.globalData.works
           let workIdx = (daysss + today)%works.length;
           let work = works[workIdx].content;
-
           dat.push(work);
           dat.push(workIdx);
-          let lDate = Util.Util.getLunarCalendar(year_t,month_t,today);
-          
-          let festival = lDate.festival;
-
-          if(festival) {
-            dat.push(festival);
-          }
+          let ldate = Util.Util.solar2lunar(year_t, month_t, today);
+          console.log(ldate)
+          dat.push(ldate)
           return dat
         })
 
         let daysPerMonth = range(0, date_queue.length, 7).map(function(x) {
             return date_queue.slice(x, x + 7)
         })
-        
-        
-        let lDate = Util.Util.getLunarCalendar(year_t, month_t, nowDate.getDate());
-        let lYear = Util.Util.getSexagenaryCycle(year_t);
+
         let dpmLen = daysPerMonth.length;
-        
+      
         let tmpWeeks = daysPerMonth[ daysPerMonth[dpmLen-1][0][0] == 0? (dpmLen - 2):(dpmLen - 1)];
         var lastWorkIdx = 0;
         for(var i = 0;i < tmpWeeks.length;i++) {
@@ -163,12 +155,9 @@ class Calendar {
                 lastDayWorkIdx: lastWorkIdx,
                 calendar: {
                     days: this.getweekheader(),
-                    weeks: daysPerMonth,
-                    dayDetail: lDate,
-                    lYear:lYear
+                    weeks: daysPerMonth
                 }
             }
-        console.log(cal1.month);
         wx.setStorageSync(tmpkey, cal1);
         typeof cb == "function" && cb(cal1)
     }

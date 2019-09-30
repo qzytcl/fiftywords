@@ -1,5 +1,7 @@
 <!--components/CalendarCell/CalendarCell.wxml-->
-<view  bindlongpress='refreshSelect' class="calendar-day  bgPress {{realDay==dayTime&realYear==year&realMonth==month?'highlightPress':''}} {{dayFestival?'highlightPress':''}}">
+<view  
+bindtap="searchSelect"
+bindlongpress='refreshSelect' class="calendar-day  bgPress {{realDay==dayTime&realYear==year&realMonth==month?'highlightPress1':''}} {{dayFestival?'highlightPress':''}}">
   <view class="date-day">{{dayTime==0 ? '' : dayTime}}</view>
   <view class='font28 numberOfLine1'>{{dayTime==0?'':dayStatus}} {{dayFestival}}</view>
 </view>

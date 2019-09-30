@@ -59,8 +59,11 @@
   margin: 0 auto;
   border-radius: 50%;
 }
+.highlightPress1 {
+  background-color: #FFD700;
+}
 .highlightPress {
-  background-color: #ffca27;
+  background-color: #FFFACD;
 }
 
 .font28 {

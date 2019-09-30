@@ -12,6 +12,8 @@
 	"appid": "wx97e90a5048605ae9",
 	"projectname": "fiftywords",
 	"isGameTourist": false,
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {
 		"search": {
 			"current": -1,

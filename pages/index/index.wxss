@@ -185,3 +185,42 @@
 .bottomView {
   padding-bottom: 10rpx;
 }
+/* .lunarContent {
+  margin: 10rpx 0 0 77rpx;
+  padding-top: 20rpx;
+  width:596rpx;
+  background:rgba(255,255,255,1);
+  box-shadow:0px 3px 6px rgba(19,19,19,0.2);
+  border-radius:10px;
+}
+.cnDate {
+  width:596rpx;
+  text-align: center;
+  color: #d3a243;
+}
+.astro {
+  width:596rpx;
+  text-align: center;
+  color: #d0af4c;
+}
+.gzDate {
+  width:596rpx;
+  text-align: center;
+  color: #deb068;
+}
+.suit {
+  margin-left: 100rpx;
+  margin-bottom: 20rpx;
+  color: #96514d;
+}
+
+.taboo {
+  margin-left: 188rpx;
+  margin-bottom: 20rpx;
+  color: #8d6449;
+}
+.suitandtaboo {
+  display: inline-flex;
+  justify-content: space-between;
+  font: 12rpx;
+} */

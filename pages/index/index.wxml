@@ -1,5 +1,6 @@
 <!--pages/index/index.wxml-->
-  <DIYView class="homeSign {{isShowDIY?'':'hiddenC'}}" bind:cancelEvent='cancelAction' bind:confirmEvent='confirmAction'></DIYView>
+<!-- <ShowLunarView class="homeSign" style="margin-left:{{leftMargin}}rpx" wx:if="{{isShowLunar}}" lDate="{{lDate}}" bind:cancelEvent='cancelShowLunarViewAction' ></ShowLunarView> -->
+  <DIYView class="homeSign" wx:if="{{isShowDIY}}" bind:cancelEvent='cancelAction' bind:confirmEvent='confirmAction'></DIYView>
 <view class="button-sp-area2">
   <view class="textL" bindtap="premonth">
     <image style="margin-left:30rpx;" class="arrowIcon" src="/images/blueArrowL.png"></image>
@@ -22,6 +23,7 @@
       <view class="calendar-week">
         <block wx:for="{{week}}" wx:for-item="day" wx:for-index="idx" wx:key="item">
           <CalendarCell
+          bind:tapCalendarCell="didClickCell"
           bind:longpressCalendarCell="refreshSelect"
           data-idx="{{idx}}"
           data-index="{{index}}"
@@ -32,14 +34,15 @@
           realDay="{{cal1.realDay}}"
           dayTime="{{day[0]}}" 
           dayStatus="{{day[2]}}" 
-          dayFestival="{{day[4]}}">
+          dayFestival="{{day[4]['festival']}}"
+          lunarDate="{{day[4]}}">
           </CalendarCell>
         </block>
       </view>
     </view>
   </view>
 </view>
-
+<!-- 统计 -->
   <view class='statisticsCls weui-grids'>
     <block wx:for="{{statisticsDaysList}}" wx:for-item="item" wx:for-index='idx' wx:key="statisticsDaysList">
       <view class='weui-grid sCell' style="width:{{countWidth}}rpx">
@@ -48,9 +51,32 @@
       </view>
     </block>
   </view>
+  <!-- 计时 -->
   <view class='ourinfo'>
     <image class='iconC' src='/icons/fficon.png'></image>
     <view class='ourtime'>{{ourtimes}}</view>
     <image class='iconC' src='/icons/ccicon.png'></image>
   </view>
+  <!-- 农历 -->
+  <!-- <view class='lunarContent'>
+    <view class="cnDate">{{lDate.IMonthCn}} {{lDate.IDayCn}}</view>
+    <view class="gzDate">{{lDate.gzYear}} {{lDate.gzMonth}} {{lDate.gzDay}} </view>
+    <view class="astro">{{lDate.astro}}</view>
+      <view class="suitandtaboo">
+          <view class="suit">
+              <view>🙂🙂</view>
+              <block wx:for="{{lDate.metaphysics.suit}}" wx:for-item="item" wx:for-index='idx' wx:key="suit">
+                <view class="suitCell">{{item}}</view>
+              </block>
+          </view>
+          <view class="taboo">
+              <view>🙃🙃</view>
+              <block wx:for="{{lDate.metaphysics.taboo}}" wx:for-item="item" wx:for-index='idx' wx:key="taboo">
+                  <view class="tabooCell">{{item}}</view>
+              </block>
+          </view>
+      </view>
+    </view> -->
+
+
   <view class='bottomView'></view>

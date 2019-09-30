@@ -1,0 +1,28 @@
+<!--components/ShowLunarView/ShowLunarView.wxml-->
+<view class='panel'>
+
+  <view class='maskingView' bindtap="cancelAction">
+
+    <view class='contentView'>
+    <view class="cnDate">{{lDate.IMonthCn}} {{lDate.IDayCn}}</view>
+    <view class="gzDate">{{lDate.gzYear}} {{lDate.gzMonth}} {{lDate.gzDay}} </view>
+    <view class="astro">{{lDate.astro}}</view>
+      <view class="suitandtaboo">
+          <view class="suit">
+              <view>🙂🙂</view>
+              <block wx:for="{{lDate.metaphysics.suit}}" wx:for-item="item" wx:for-index='idx' wx:key="suit">
+                <view class="suitCell">{{item}}</view>
+              </block>
+          </view>
+          <view class="taboo">
+              <view>🙃🙃</view>
+              <block wx:for="{{lDate.metaphysics.taboo}}" wx:for-item="item" wx:for-index='idx' wx:key="taboo">
+                  <view class="tabooCell">{{item}}</view>
+              </block>
+          </view>
+      </view>
+    </view>
+
+  </view>
+
+</view>

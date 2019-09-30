@@ -34,6 +34,10 @@ Component({
     },year:{
       type: String,
       value: ""
+    },
+    lunarDate: {
+      type: Object,
+      value: null
     }
   },
 
@@ -49,9 +53,10 @@ Component({
    */
   methods: {
     refreshSelect(e){
-      // console.log(e);
-      // console.log(this.data.month,this.data.year);
       this.triggerEvent("longpressCalendarCell",{"month":this.data.month,"year":this.data.year});
+    },
+    searchSelect(e){
+      this.triggerEvent("tapCalendarCell",{'lunarDate':this.data.lunarDate})
     }
   }
 })
